@@ -1,0 +1,18 @@
+1 - Criar pasta para projeto: c:\md appmodelo
+2 - Acessar a pasta do projeto: c:\cd appmodelo
+3 - Instalar o ambiente virtual: c:\appmodelo\pipenv install
+4 - Instalar pacotes:
+4.1 - pipenv install flask
+4.2 - pipenv install flask-wtf
+4.3 - pipenv install flask-sqlalchemy
+4.4 - pipenv install flask-bcrypt
+4.5 - pipenv install flask-login
+4.6 - pipenv install Pillow
+4.7 - pipenv install flask-mail
+4.8 - pipenv install mysql-connector-python==8.0.6 --> não instalar
+4.9 - pipenv install mysqlclient-1.4.2-cp37-cp37m-win_amd64.whl
+4.10 - pipenv install reportlab
+5 - Acessar o ambiente virtual: c:\appmodelo\pipenv shell
+6 - Executar o aplicativo: c:\appmodelo\python run.py
+
+pip freeze > requirements.txt

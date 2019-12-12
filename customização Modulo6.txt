@@ -1,0 +1,27 @@
+1 - copiar modulo6 da pasta app_modelo para nova pasta
+2 - alterar nome da pasta: modulo6 para conta_grupo
+3 - excluir do projeto: models.py
+4 - alterar no projeto(find and replace): modulo6 para conta_grupo
+5 - alterar no projeto(find and replace): app_modelo para app
+6 - alterar no projeto(find and replace): Professor para Conta
+7 - alterar no projeto(find and replace): Aluno para Grupo
+8 - alterar no projeto(find and replace): professor_prf para conta_con
+9 - alterar no projeto(find and replace): id_prf para id_conta
+9 - alterar no projeto(find and replace): nome_prf para ds_usuario_con
+10 - alterar no projeto(find and replace): aluno_aln para grupo_gru
+11 - alterar no projeto(find and replace): id_aln para id_grupo
+9 - alterar no projeto(find and replace): nome_aln para ds_nome_gru
+9 - alterar no projeto(find and replace): professores para grupos
+9 - alterar no projeto(find and replace): grupos para contas
+12 - alterar no projeto: app.conta_grupo.models para app.models.models
+13 - alterar no routes.py: users.logout para conta.logout
+
+14 - incluir entradas no projeto: __init__.py
+15 - incluir entradas no projeto: layout.html
+
+16 - renomear arquivos do projeto: lista_professor.html, altera_professor.html, inclui_professor.html para lista_conta.html, altera_conta.html, inclui_conta.html
+17 - renomear arquivos do projeto: lista_aluno.html, altera_aluno.html, inclui_aluno.html para lista_grupo.html, altera_grupo.html, inclui_grupo.html
+
+18 - alterar no projeto(find and replace): lista_professor.html, altera_professor.html, inclui_professor.html para lista_conta.html, altera_conta.html, inclui_conta.html
+19 - alterar no projeto(find and replace): lista_aluno.html, altera_aluno.html, inclui_aluno.html para lista_grupo.html, altera_grupo.html, inclui_grupo.html
+

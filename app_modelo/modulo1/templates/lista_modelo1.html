@@ -1,0 +1,210 @@
+{% extends "layout.html" %}
+{% block content %}
+	<div class="content-section">
+		<div class="row">
+			<div class="col md-12">
+
+				<h2>{{ title }}
+					<button type="button" class="btn btn-success float-md-right" data-toggle="modal"
+					 data-target="#incluirModal">Novo
+					</button>
+				</h2>
+
+				<!-- Modal Incluir Dados-->
+				<div id="incluirModal" class="modal fade" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+
+							<div class="modal-header">
+								<h4 class="modal-title">Incluir Novo</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+
+							<div class="modal-body">
+								<form action="{{ url_for('modulo1.incluir') }}" method="POST">
+									{{ form.csrf_token }}
+									<fieldset class="form-group">
+
+						        <div class="form-group">
+						            {{ form.sigla.label(class="form-control-label") }}
+						            {% if form.sigla.errors %}
+						                {{ form.sigla(class="form-control form-control-lg is-invalid") }}
+						                <div class="invalid-feedback">
+						                    {% for error in form.sigla.errors %}
+						                        <span>{{ error }}</span>
+						                    {% endfor %}
+						                </div>
+						            {% else %}
+						                {{ form.sigla(class="form-control form-control-lg") }}
+						            {% endif %}
+						        </div>
+
+						        <div class="form-group">
+						            {{ form.nome.label(class="form-control-label") }}
+						            {% if form.nome.errors %}
+						                {{ form.nome(class="form-control form-control-lg is-invalid") }}
+						                <div class="invalid-feedback">
+						                    {% for error in form.nome.errors %}
+						                        <span>{{ error }}</span>
+						                    {% endfor %}
+						                </div>
+						            {% else %}
+						                {{ form.nome(class="form-control form-control-lg") }}
+						            {% endif %}
+						        </div>
+
+					        </fieldset>
+
+								<div class="modal-footer">
+									<div class="form-group">
+	          				{{ form.submit(class="btn btn-outline-info") }}
+	      					</div>
+								</div>
+
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Fim Modal Incluir Dados -->
+
+				<div class="table-responsive">
+					<table class="table bg-light table-bordered">
+
+						<thead class="thead-dark">
+							<tr>
+								<th class="text-center" style="width: 30px">Seq</th>
+								<th class="text-center" style="width: 200px">Sigla</th>
+								<th class="text-center" style="width: 600px">Nome</th>
+								<th class="text-center" style="width: 200px">Ação</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							{% for row in dados.items %}
+
+								<tr>
+									<td>{{ row.id }}</td>
+									<td>{{ row.sigla }}</td>
+									<td>{{ row.nome }}</td>
+									<td class="text-center">
+
+										<!-- Botão Alterar: neste caso o endereço 'href' não é executado, assim, o controle é passado para o modal que deverá invocar este endereço -->
+										<a href="" class="btn btn-warning btn-md" role="button" aria-pressed="true" data-toggle="modal" data-target="#alterarModal{{ row.id }}">Alterar</a>
+
+										<a href="#" class="btn btn-danger btn-md" role="button" aria-pressed="true" data-toggle="modal" data-target="#excluirModal{{ row.id }}">Excluir</a>
+
+									</td>
+								</tr>
+
+								<!-- Modal Alterar Dados -->
+								<div class="modal fade" id="alterarModal{{ row.id }}"  role="dialog">
+									<div class="modal-dialog">
+										<div class="modal-content">
+
+											<div class="modal-header">
+												<h4 class="modal-title">Alterar Dados</h4>
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+											</div>
+
+											<div class="modal-body">
+
+												<form action="{{ url_for('modulo1.alterar', id_data=row.id) }}" method="POST">
+													{{ form.csrf_token }}
+
+													<fieldset class="form-group">
+
+ 										        <div class="form-group">
+									            {{ form.sigla.label(class="form-control-label") }}
+									            {% if form.sigla.errors %}
+								                <input type="text" class="form-control form-control-lg is-invalid" name="sigla" value="{{ row.sigla }}">
+								                <div class="invalid-feedback">
+							                    {% for error in form.sigla.errors %}
+						                        <span class="text-danger">{{ error }}</span></br>
+							                    {% endfor %}
+								                </div>
+									            {% else %}
+								                <input type="text" class="form-control form-control-lg" name="sigla" value="{{ row.sigla }}">
+									            {% endif %}
+										        </div>
+
+ 														<div class="form-group">
+									            {{ form.nome.label(class="form-control-label") }}
+									            {% if form.nome.errors %}
+								                <!-- {{ form.nome(class="form-control form-control-lg is-invalid") }} -->
+								                <input type="text" class="form-control form-control-lg is-invalid" name="nome" value="{{ row.nome }}">
+								                <div class="invalid-feedback">
+							                    {% for error in form.nome.errors %}
+						                        <span class="text-danger">{{ error }}</span></br>
+							                    {% endfor %}
+								                </div>
+									            {% else %}
+								                <!-- {{ form.nome(class="form-control form-control-lg") }} -->
+								                <input type="text" class="form-control form-control-lg" name="nome" value="{{ row.nome }}">
+									            {% endif %}
+										        </div>
+
+									        </fieldset>
+
+												<div class="modal-footer">
+													<div class="form-group">
+					          				{{ form.submit(class="btn btn-outline-info") }}
+					      					</div>
+												</div>
+
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Fim Modal Alterar Dados -->
+
+			          <!-- Modal Excluir Dados -->
+			          <div class="modal fade" id="excluirModal{{ row.id }}">
+			            <div class="modal-dialog modal-dialog-centered" role="document">
+			              <div class="modal-content">
+
+			                <div class="modal-header">
+			                  <h5 class="modal-title" id="exampleModalLongTitle">Excluindo Registro</h5>
+			                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			                    <span aria-hidden="true">&times;</span>
+			                  </button>
+			                </div>
+
+			                <div class="modal-body">
+			                  <p>Confirma a exclusão: {{ row.sigla }}? </p>
+			                </div>
+
+			                <div class="modal-footer">
+			                  <form action="{{ url_for('modulo1.excluir', id_data=row.id) }}" method="POST">
+			                    <input type="submit" value="Sim" class="btn btn-outline-info">
+			                  </form>
+			                </div>
+
+			              </div>
+			            </div>
+			          </div>
+			          <!-- Fim Modal Excluir Dados -->
+
+							{% endfor  %}
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	{% for page_num in dados.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+	  {% if page_num %}
+	    {% if dados.page == page_num %}
+	      <a class="btn btn-info mb-4" href="{{ url_for('modulo1.acessar', page=page_num) }}">{{ page_num }}</a>
+	    {% else %}
+	      <a class="btn btn-outline-info mb-4" href="{{ url_for('modulo1.acessar', page=page_num) }}">{{ page_num }}</a>
+	    {% endif %}
+	  {% else %}
+	    ...
+	  {% endif %}
+	{% endfor %}
+
+{% endblock content %}

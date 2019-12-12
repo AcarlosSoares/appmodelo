@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% from "macros.html" import render_field %}
+{% block content %}
+
+  <div class="row align-items-center justify-content-center">
+    <div class="content-section col-md-6">
+
+      <div class="panel-body">
+
+        <div class="modal-body">
+
+          <form action="" method="POST">
+          {{ form.csrf_token }}
+
+            <fieldset class="form-group">
+
+              <legend class="border-bottom mb-4">
+
+                <h2 class="font-weight-bold">
+                  {% if title %} {{ title }}
+                  {% else %} Sem Título
+                  {% endif %}
+
+                  <button type="button" class="close" onclick="window.location.href = '{{ url_for('tb_empresa_emp.tb_empresa_emp_acessar') }}';">
+                  &times;
+                  </button>
+                </h2>
+
+              </legend>
+
+              <div class="content-section bg-light rounded-lg">
+                {{ render_field(form.ds_nomefantasia_emp) }}
+                {{ render_field(form.ds_razaosocial_emp) }}
+                {{ render_field(form.ds_cnpj_emp) }}
+                {{ render_field(form.ds_cidade_emp) }}
+              </div>
+
+            </fieldset>
+
+            <div class="modal-footer">
+              <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}

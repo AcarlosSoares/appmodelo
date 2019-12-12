@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Aplicativo Modelo</h1>
+    <h3>Aplicativo que servirá de modelo para o desenvolvimento de novos aplicativo web utilizando o framework Flask!</h3><br><br>
+    <h3> Passos para a inicialização:</h3>
+    <ol>
+      <li>Instalar o Pipenv: pip install pipenv</li>
+      <li>Criar uma nova pasta: md nova_pasta</li>
+      <li>Entra na nova pasta: cd nova_pasta</li>
+      <li>Criar uma ambiente virtual para o projeto: pipenv install novo_projeto</li>
+      <li>Iniciar o ambiente virtual: pipenv shell</li>
+      <li>Instalar os pacotes do projeto: pipenv install flask flask-wtf flask-sqlalchemy flask-bcrypt flask-login Pillow flask-mail</li>
+      <li>Copia o 'projetomodelo' para a nova_pasta</li>
+      <li>Cria o banco de dados no Mysql</li>
+      <li>Ajustar as configuração do banco de dados no arquivo config.py</li>
+      <li>Executar o aplicativo: python run.py</li>
+    </ol>
+{% endblock content %}

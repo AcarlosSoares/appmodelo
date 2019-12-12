@@ -1,0 +1,147 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!--------------------------- LISTA DE ALUNOS POR PROFESSOR -------------------------->
+	<div class="content-section">
+		<div class="row">
+			<div class="col md-12">
+
+				<!-- Título  -->
+				<h2>
+					{{ title }}
+				</h2>
+
+				<!-- Sub-Título  -->
+				<h4>
+					Professor: {{ nome_super }}
+				</h4>
+
+				<!-- Painel de Ordenação e Pesquisa -->
+				<form action="{{ url_for('modulo8.acessarAlunosPorProfessor', id_super=id_super, nome_super=nome_super) }}" name="acessar_aluno_professor" method="POST">
+					{{ form.csrf_token }}
+					<div class="container bg-light border rounded-lg">
+					  <div class="row mb-2">
+
+					    <div class="col-sm-4">
+					      {{ form.ordenarpor.label(class="form-control-label") }}
+					      <div class="row">
+					      	<div class="col-sm-8">
+							      {{ form.ordenarpor(class="form-control form-control-lm") }}
+							    </div>
+					      	<div class="col-sm-4">
+							      {{ form.ordem(class="form-control form-control-lm") }}
+							    </div>
+					      </div>
+					    </div>
+
+					    <div class="col-sm-8">
+					      {{ form.pesquisarpor.label(class="form-control-label") }}
+					      <div class="row">
+					      	<div class="col-sm-8">
+							      {{ form.pesquisarpor(class="form-control form-control-lm") }}
+							    </div>
+							    <div class="col-sm-2">
+							      {{ form.submit_enviar(class="btn btn-outline-info") }}
+					      	</div>
+									<div class="col-sm-2">
+							      {{ form.submit_limpar(class="btn btn-outline-info") }}
+					      	</div>
+					      </div>
+					    </div>
+
+					  </div>
+					</div>
+
+					<!-- Painel Paginação e Botões Imprimir e Novo -->
+					<div>
+						{% for page_num in dados.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+						  {% if page_num %}
+						    {% if dados.page == page_num %}
+						      <input class="btn btn-info my-2" name="page" type="submit" value={{ page_num }} />
+						    {% else %}
+						      <input class="btn btn-outline-info my-2" name="page" type="submit" value={{ page_num }} />
+						    {% endif %}
+						  {% else %}
+						    ...
+						  {% endif %}
+						{% endfor %}
+
+						<!-- Botão Voltar -->
+			      <a href="{{ url_for('modulo8.acessarProfessor') }}" class="btn btn-info float-md-right my-2" role="button" aria-pressed="true">Voltar</a>
+
+			      <!-- Botão Adicionar Alunos -->
+			      <a href="{{ url_for('modulo8.acessarAluno', id_super=id_super, nome_super=nome_super) }}" class="btn btn-success float-md-right mx-2 my-2" role="button" aria-pressed="true">Adicionar Alunos</a>
+
+			      <!-- Botão Imprimir -->
+			      <input class="btn btn-secondary float-md-right my-2" name="imprimir" type="submit" value="Imprimir">
+
+					</div>
+
+				</form>
+
+				<!-- Tabela de Listagem dos Dados -->
+				<div class="table-responsive">
+					<table class="table table-striped table-bordered">
+
+						<!-- Cabeçalho da Tabela -->
+						<thead class="thead-dark">
+							<tr>
+								<th class="text-center" style="width: 30px">Seq</th>
+								<th class="text-center" style="width: 600px">Nome</th>
+								<th class="text-center" style="width: 100px">Ação</th>
+							</tr>
+						</thead>
+
+						<!-- Detalhe da Tabela -->
+						<tbody>
+							{% for dado in dados.items %}
+
+								<tr>
+									<td>{{ dado.id }}</td>
+									<td>{{ dado.nome }}</td>
+									<td class="text-center">
+
+										<!-- Botão Excluir -->
+										<a href="#" class="btn btn-danger btn-md" role="button" aria-pressed="true" data-toggle="modal" data-target="#excluirModal1{{ dado.id }}">Excluir</a>
+
+									</td>
+								</tr>
+
+			          <!-- Modal Excluir Dados -->
+			          <div class="modal fade" id="excluirModal1{{ dado.id }}">
+			            <div class="modal-dialog modal-dialog-centered" role="document">
+			              <div class="modal-content">
+
+			                <div class="modal-header">
+			                  <h5 class="modal-title" id="exampleModalLongTitle">Excluir Registro</h5>
+			                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			                    <span aria-hidden="true">&times;</span>
+			                  </button>
+			                </div>
+
+			                <div class="modal-body">
+			                  <p>Confirma a exclusão: {{ dado.nome }}? </p>
+			                </div>
+
+			                <div class="modal-footer">
+			                  <form action="{{ url_for('modulo8.excluirAlunoProfessor', id_data=dado.id, id_super=id_super, nome_super=nome_super) }}" method="POST">
+			                  	{{ form.csrf_token }}
+			                    <input type="submit" value="Sim" class="btn btn-outline-info">
+			                  </form>
+			                </div>
+
+			              </div>
+			            </div>
+			          </div>
+			          <!-- Fim Modal Excluir Dados -->
+
+							{% endfor  %}
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+{% endblock content %}

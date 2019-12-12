@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% from "macros.html" import render_field, render_select_field %}
+{% block content %}
+
+  <div class="row align-items-center justify-content-center">
+    <div class="content-section col-md-6">
+
+      <div class="panel-body">
+        <div class="modal-body">
+
+          <form action="" method="POST">
+          {{ form.csrf_token }}
+
+            <fieldset class="form-group">
+
+              <legend class="border-bottom mb-4">
+
+                {% if title %} {{ title }}
+                {% else %} Título
+                {% endif %}
+
+                <button type="button" class="close" onclick="window.location.href = '{{ url_for('modulo5.acessarDetalhe', id_mst=id_mst, nome_mst=nome_mst) }}';">
+                &times;
+                </button>
+              </legend>
+
+              <div class="content-section bg-light rounded-lg">
+                {{ render_select_field(form.mestre) }}
+                {{ render_field(form.nome) }}
+                {{ render_field(form.endereco) }}
+                {{ render_field(form.bairro) }}
+                {{ render_field(form.cidade) }}
+                {{ render_field(form.telefone) }}
+              </div>
+
+            </fieldset>
+
+            <div class="modal-footer">
+              <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
